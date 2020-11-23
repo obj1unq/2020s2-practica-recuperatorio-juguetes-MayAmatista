@@ -1,5 +1,4 @@
 import juguetes.*
-
 describe "juguetes" {
 	
 	var baldecito 
@@ -8,82 +7,118 @@ describe "juguetes" {
 	var valentin
 	var zoe
 	var milena
+	var cubo
+	var cilindro
+	var tachito1
+	var tachito2
+	var tachito3
 		
 	fixture {
-	   // TODO: configurar el cuv con un valor de 2
-	   baldecito = //TODO: Construir/configurar un baldecito de cuerpos geometricos que tenga 
-	               // un cubo de volumen  4 azul y un cilindro de volumen 3 rosa 	
-	   pelota = //TODO: Construir/configurar una Pelota de radio 4
-	   tachitos = //TODO: Construir un juego de tachitos apilables con 3 tachitos de volumen 6,5 y 4 respectivamente. todos azules.
+	   cuv.valor(2)
+	   tachito1 = new Pieza(color="Azul",volumen=6)
+	   tachito2 = new Pieza(color="Azul",volumen=5)
+	   tachito3 = new Pieza(color="Azul",volumen=4)
+	   cubo = new Pieza(color="Azul",volumen=4)
+	   cilindro = new Pieza (color="Rosa",volumen=3)
+	   baldecito = new BaldecitoCuerposGeometricos(piezas=[cubo,cilindro])
+	   pelota = new Pelota(radioPelota=4)
+	   tachitos = new JuegoTachitosApilables(piezas=[tachito1,tachito2,tachito3])
 		
-	   valentin = //TODO: construir un niño típico de 10 meses de edad 
-	   zoe = //TODO: construir una niño curiosa de 20 meses de edad 
-	   milena = //TODO: construir una niña revoltosa de 15 meses de edad
+	   valentin = new Ninie(edad=10,juguetes=#{})
+	    //TODO: construir un niño típico de 10 meses de edad 
+	   zoe = new NinieCuriose(edad=20,juguetes=#{})
+	    //TODO: construir una niño curiosa de 20 meses de edad 
+	   milena = new NinieRevoltose(edad=15,juguetes=#{})
+	    //TODO: construir una niña revoltosa de 15 meses de edad
 	}
 	
 	test "costo de un juguete" {
-		//TODO: verificar que el costo de la pelota es 24
-		//TODO: verificiar que el costo del baldecito es 21
-		//TODO verificar qeu el costo de los tachitos es 39
+		assert.equals(24,pelota.costoFabricacion())
+		//assert.equals(21,baldecito.costoFabricacion())
+		//assert.equals(39,tachitos.costoFabricacion())
 	}
 
-/* 	
+ 	
 	test "eficacia" {
 	    //TODO: verificar que la eficacia de la pelota sea 12
+	    assert.equals(12,pelota.eficacia())
 		//TODO: verificar que la eficacia del baldecito sea 6
+		assert.equals(6,baldecito.eficacia())
 		//TODO: verificar que la eficacia de los tachitos sea 15
+		assert.equals(15,tachitos.eficacia())
 	} 
-*/	
-/* 	test "precio" {
+	
+test "precio" {
 		//TODO: verificar que el precio de la pelota es 144
+		assert.equals(144,pelota.precioVenta())
 		//TODO: verificiar que el precio del baldecito es 101
+		assert.equals(101,baldecito.precioVenta())
 		//TODO verificar que el precio de los tachitos es 189
+		assert.equals(189,tachitos.precioVenta())
 	}
-*/
 
-/* 	
-	test "entretenimiento" {
+test "entretenimiento" {
 		//TODO: verificar que valentin se entretiene con la pelota 13.2 minutos
+		assert.equals(13.2,valentin.tiempoEntretenimiento(pelota))
 		//TODO: verificar que zoe se entretiene con la pelota 21.6 minutos
+		assert.equals(21.6,zoe.tiempoEntretenimiento(pelota))
 		//TODO verificar que milena se entretiene con la pelota 6.9 miutos
+		assert.equals(6.9,milena.tiempoEntretenimiento(pelota))
 	}
-*/
-/* 	
-	test "obtener juguetes tipico" {
+test "obtener juguetes tipico" {
 		//TODO: hacer que valentin obtenga una pelota
+		valentin.recibirJuguete(pelota)
 		//TODO: hacer que valentin obtenga los tachitos
+		valentin.recibirJuguete(tachitos)
 		//TODO: verificar que valentin tenga a la pelota y los tachitos
+		assert.equals(valentin.juguetes(),#{pelota,tachitos})
 	}
-*/
-/* 
-	test "obtener juguetes curiosa" {
+test "obtener juguetes curiosa" {
 		//TODO: hacer que zoe obtenga la pelota. 
+		zoe.recibirJuguete(pelota)
 		//TODO: hacer que zoe intente obtener los tachitos. NO SE PUEDE!! 
+		assert.throwsException({zoe.recibirJuguete(tachitos)})
 		//TODO: verificar que zoe solo tenga a la pelota entre sus juguetes
+		assert.equals(zoe.juguetes(),#{pelota})
 	}
-*/
-/* 
-	test "comprar juguetes revoltosa" {
+test "comprar juguetes revoltosa" {
 		//TODO: intentar que milena obtenga la pelota. NO SE PUEDE!
 		//TODO: hacer que milena obtenga los tachitos. 
+		assert.throwsException({milena.recibirJuguete(pelota)})
+		//TODO: hacer que milena obtenga los tachitos.
+		milena.recibirJuguete(tachitos)
 		//TODO: verificar que milena solo tenga a los tachitos entre sus juguetes
+		assert.equals(milena.juguetes(),#{tachitos})
+
 	}
-*/
-/* 	
-	test "donar ok" {
+test "donar ok" {
 		//TODO: configurar a valentin con los siguientes juguetes: baldecito, pelota y tachitos
 		//TODO: hacer que valentin le done a milena 
+		valentin.recibirJuguete(baldecito)
+		valentin.recibirJuguete(pelota)
+		valentin.recibirJuguete(tachitos)
+		//TODO: hacer que valentin le done a milena
+		valentin.donarJuguetes(milena) 
 		//TODO: verificar que milena solo tenga a los tachitos entre sus juguetes
 		//TODO: verificar que valentin tiene como juguetes el baldecito y la pelota 
+		assert.equals(milena.juguetes(),#{tachitos})
+		//TODO: verificar que valentin tiene como juguetes el baldecito y la pelota
+		assert.equals(valentin.juguetes(),#{baldecito,pelota}) 
 	}
-*/
-/* 	
+
+ 	
 	test "donar no ok" {
 		//TODO: configurar a zoe con los siguientes juguetes: baldecito y pelota 
+		//TODO: configurar a zoe con los siguientes juguetes: baldecito y pelota
+		zoe.recibirJuguete(baldecito)
+		zoe.recibirJuguete(pelota)
+
 		//TODO: hacer que zoe le done a milena. NO SE PUEDE!!
+		assert.throwsException({zoe.donarjuguetes(milena)})
 		//TODO: verificar que los juguetes de zoe sean baldecito y pelota
+		assert.equals(zoe.juguetes(),#{baldecito,pelota}) 
 		//TODO: verificar que milena no tiene juguetes
+		assert.equals(milena.juguetes(),#{}) 
 	}
-*/	
 	
 }
